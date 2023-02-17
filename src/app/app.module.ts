@@ -17,8 +17,10 @@ import { HomeContentComponent } from './components/home-content/home-content.com
 import { LoadingComponent } from './components/loading/loading.component';
 import { ExternalApiComponent } from './pages/external-api/external-api.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
+import { AuthModule } from '@auth0/auth0-angular';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { environment as env } from '../environments/environment';
     HomeContentComponent,
     LoadingComponent,
     ExternalApiComponent,
-    ErrorComponent
+    ErrorComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -40,10 +43,12 @@ import { environment as env } from '../environments/environment';
     NgbModule,
     HighlightModule,
     FontAwesomeModule,
+    // Import the module into the application, with configuration
     AuthModule.forRoot({
-      ...env.auth,
-      httpInterceptor: {
-        ...env.httpInterceptor,
+      domain: 'dev-rulorg54zj8xchpm.us.auth0.com',
+      clientId: '9UAyngVwVLf68vi56Vhp0aCYUmzGVHO5',
+      authorizationParams: {
+        redirect_uri: window.location.origin,
       },
     }),
   ],
